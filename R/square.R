@@ -23,6 +23,7 @@
 #'
 #'@examples
 #'square(3)
+#'square(1.4)
 #'
 #'@export
 #'
