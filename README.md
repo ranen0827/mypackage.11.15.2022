@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# package.test.11.15
+# Linear model
 
 <!-- badges: start -->
 
@@ -9,6 +9,10 @@
 <!-- badges: end -->
 
 The goal of package.test.11.15 is to …
+
+## Functions
+
+`lm_mat()` creates the design matrix, Y, as well as H_matrix for future
 
 ## Installation
 
@@ -26,6 +30,11 @@ This is a basic example which shows you how to solve a common problem:
 
 ``` r
 library(package.test.11.15)
+#> 
+#> Attaching package: 'package.test.11.15'
+#> The following object is masked from 'package:stats':
+#> 
+#>     coef
 ## basic example code
 ```
 

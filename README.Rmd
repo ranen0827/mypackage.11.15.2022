@@ -13,13 +13,17 @@ knitr::opts_chunk$set(
 )
 ```
 
-# package.test.11.15
+# Linear model
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/ranen0827/mypackage.11.15.2022/workflows/R-CMD-check/badge.svg)](https://github.com/ranen0827/mypackage.11.15.2022/actions)
 <!-- badges: end -->
 
 The goal of package.test.11.15 is to ...
+
+## Functions
+
+`lm_mat()` creates the design matrix, Y, as well as H_matrix for future 
 
 ## Installation
 
@@ -41,7 +45,7 @@ library(package.test.11.15)
 
 What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
 
-```{r cars}
+```{r mtcars}
 summary(cars)
 ```
 

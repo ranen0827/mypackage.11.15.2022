@@ -22,26 +22,19 @@ lm_mat <- function(Y_lab, X_lab, data, beta0 = TRUE) {
   ## potential_error: about design matrix (...)
 
   H = X %*% solve(t(X) %*% X) %*% t(X)
-  Y_hat <- H %*% Y
-  resids <- Y - Y_hat
-  # sigma_sqr_hat <- SSE/dfE = SSE/(n-p)
-  sigma_sqr <- t(resids) %*% resids /(nrow(data)-leng(X_lab)-beta0)
-  var_beta_hat <- sigma_sqr * solve(t(X) %*% X)
-  beta <- solve(t(X) %*% X) %*% t(X) %*% Y
 
-  return(list(X = X,
+  return(list(N = nrow(X),
+              X = X,
               Y = Y,
-              H = H,
-              beta = beta,
-              var_beta_hat = var_beta_hat,
-              var_betas = diag(var_beta_hat),
-              resids = resids,
-              Y_hat = Y_hat))
+              H = H))
 }
 
 
 # solve beta0 using matrix notation
 
+b <- function(){
+  return(a=c(2,1))
+}
 
 # test
 #> names(mtcars)
