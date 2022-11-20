@@ -17,5 +17,6 @@ Gets the square of a number
 }
 \examples{
 square(3)
+square(1.4)
 
 }
