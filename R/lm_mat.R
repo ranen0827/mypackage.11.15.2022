@@ -1,6 +1,8 @@
 # MLR beta coefficient
 ## input: data, output: design matrix of the model
 ## model preparations
+
+## define design matrix, outcome, dimensions
 lm_mat <- function(Y_lab, X_lab, data, beta0 = TRUE) {
   ## potential_error: "data" not a data frame --> stop
   if (!is.data.frame(data))
@@ -22,11 +24,21 @@ lm_mat <- function(Y_lab, X_lab, data, beta0 = TRUE) {
   ## potential_error: about design matrix (...)
 
   H = X %*% solve(t(X) %*% X) %*% t(X)
+  Y_hat <- H %*% Y
 
-  return(list(N = nrow(X),
+
+  return(list(xvar = X_lab,
+              yvar = Y_lab,
+              Dataset = data,
+              selected = data[,c(Y_lab, X_lab)],
+              beta0 = beta0,
+              N = nrow(X),
+              p = ncol(X),
               X = X,
               Y = Y,
-              H = H))
+              H = H,
+              Y_hat = Y_hat,
+              residuals = c(Y - Y_hat)))
 }
 
 
@@ -36,14 +48,5 @@ b <- function(){
   return(a=c(2,1))
 }
 
-# test
-#> names(mtcars)
-#[1] "mpg"  "cyl"  "disp" "hp"   "drat" "wt"   "qsec"
-#[8] "vs"   "am"   "gear" "carb"
-#> lm(mpg~cyl+disp, mtcars)
-#Call:
-#  lm(formula = mpg ~ cyl + disp, data = mtcars)
-#Coefficients:
-#  (Intercept)          cyl         disp
-#34.66099     -1.58728     -0.02058
+
 lm_mat("mpg", c("cyl","disp"), mtcars)

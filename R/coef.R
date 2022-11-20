@@ -1,17 +1,16 @@
 ### Estimation: betahat and var(betahat) ###
 ### Inference: t statistic and p val for H0: beta = 0 ###
-coef <- function(model_mat){
-  beta0 <- model_mat$beta0
-  data <- model_mat$Dataset
+coef <- function(model){
+  beta0 <- model$beta0
+  data <- model$Dataset
   X_lab <- if(beta0){c("(Intercept)",model_mat$xvar)}else{model_mat$xvar}
-  X <- model_mat$X
-  Y <- model_mat$Y
-  H <- model_mat$H
-  n <- model_mat$N
-  p <- model_mat$p
+  X <- model$X
+  Y <- model$Y
+  H <- model$H
+  n <- model$N
+  p <- model$p
   ## coefficients beta (including beta 0)
   beta <- solve(t(X) %*% X) %*% t(X) %*% Y
-  Y_hat <- H %*% Y
   resids <- Y - Y_hat
   SSE <- t(resids) %*% resids
   SSY <- t(Y-mean(Y)) %*% (Y-mean(Y))
