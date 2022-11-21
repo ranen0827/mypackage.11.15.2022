@@ -32,7 +32,7 @@
 #'
 
 model_diag <- function(model){
-  a <- ggplot(data.frame(y = model$residuals), aes(sample = y))+
+  a <- ggplot(data.frame(y = model$residuals), aes(sample = model$residuals))+
     theme_bw()+
     theme(plot.title=element_text(face='bold',hjust=0.5))+
     labs(title="Normal Q-Q plot",x="Theoretical quantiles",
@@ -41,24 +41,21 @@ model_diag <- function(model){
     stat_qq_line(size=1)
   # fitted v.s. residuals
   b <- ggplot(data.frame(x=model$Y_hat,y=model$residuals),
-              aes(x=x,y=y))+
+              aes(x=model$Y_hat,y=model$residuals))+
     theme_bw()+
     theme(plot.title=element_text(face='bold',hjust=0.5))+
     labs(title="Response vs. Linear predictors",x="Linear predictor",y="Residuals")+
     geom_point()+
     geom_smooth(method='lm')
   # histogram of residuals
-  c <- ggplot(data.frame(x=model$residuals), aes(x=x))+
+  c <- ggplot(data.frame(x=model$residuals), aes(x=model$residuals))+
     theme_bw()+
     theme(plot.title=element_text(face='bold',hjust=0.5))+
     labs(title="Histogram of residuals",x="Residuals",y="Frequency")+
-    geom_histogram(aes(y = ..density..))+
-    stat_function(fun=dnorm, args=list(mean=mean(model$residuals),
-                                       sd=sd(model$residuals)),
-                  color='blue')
+    geom_histogram(aes(x=model$residuals))
   # fitted vs. original
   d <- ggplot(data.frame(x=model$Y_hat,y=model$Y),
-              aes(x=x,y=y))+
+              aes(x=model$Y_hat,y=model$Y))+
     theme_bw()+
     theme(plot.title=element_text(face='bold',hjust=0.5))+
     labs(title="Response vs. Fitted values",x="Fitted values",y="Response")+
@@ -72,14 +69,9 @@ model_diag <- function(model){
             align="hv")
 }
 
+model <- lm_mat("mpg", c("cyl", "disp"), mtcars, beta0 = TRUE)
 
-
-
-
-
-
-
-
+model_diag(model)
 
 
 

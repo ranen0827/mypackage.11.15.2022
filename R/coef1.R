@@ -83,7 +83,7 @@ coef1 <- function(model){
   )
   return(list(Coefficients = coef_tbl,
               F_test = F_test,
-              Signif.codes = c("0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1"),
+              Signif.codes = c("0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1"),
               Adj.R_square = c(Adj.R_square),
               R_square = c(R_square),
               Covariance_matrix = var_beta_hat))
@@ -91,17 +91,4 @@ coef1 <- function(model){
 
 
 
-'
-Coefficients:
-            Estimate Std. Error t value Pr(>|t|)
-(Intercept) 34.66099    2.54700  13.609 4.02e-14 ***
-cyl         -1.58728    0.71184  -2.230   0.0337 *
-disp        -0.02058    0.01026  -2.007   0.0542 .
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-
-Residual standard error: 3.055 on 29 degrees of freedom
-Multiple R-squared:  0.7596,	Adjusted R-squared:  0.743
-F-statistic: 45.81 on 2 and 29 DF,  p-value: 1.058e-09
-'
 
