@@ -27,10 +27,10 @@ from outcome(Y) and predictors(X) constructing a linear model
 lm_mat("mpg", c("cyl"), mtcars, beta0 = TRUE)
 
 ## MLR (Multiple Linear Regression with intercept)
-lm_mat("mpg", c("cyl", "disp"), mtcars, beta0 = TRUE))
-lm_mat("mpg", c("cyl", "disp"), mtcars, beta0 = TRUE))
+lm_mat("mpg", c("cyl", "disp"), mtcars, beta0 = TRUE)
+lm_mat("mpg", c("cyl", "disp"), mtcars, beta0 = TRUE)
 
 ## MLR (Multiple Linear Regression without intercept)
-lm_mat("mpg", c("cyl", "disp"), mtcars, beta0 = FALSE))
+lm_mat("mpg", c("cyl", "disp"), mtcars, beta0 = FALSE)
 
 }

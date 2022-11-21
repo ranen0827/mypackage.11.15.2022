@@ -14,11 +14,11 @@
 #'eda(mtcars[,c(model_SLR$yvar, model_SLR$xvar)])
 #'
 #'## MLR (Multiple Linear Regression with intercept)
-#'model_MLR1 = lm_mat("mpg", c("cyl", "disp"), mtcars, beta0 = TRUE))
+#'model_MLR1 = lm_mat("mpg", c("cyl", "disp"), mtcars, beta0 = TRUE)
 #'eda(mtcars[,c(model_MLR1$yvar, model_MLR1$xvar)])
 #'
 #'## MLR (Multiple Linear Regression without intercept)
-#'model_MLR2 = lm_mat("mpg", c("cyl", "disp"), mtcars, beta0 = FALSE))
+#'model_MLR2 = lm_mat("mpg", c("cyl", "disp"), mtcars, beta0 = FALSE)
 #'eda(mtcars[,c(model_MLR2$yvar, model_MLR2$xvar)])
 #'
 #'@export

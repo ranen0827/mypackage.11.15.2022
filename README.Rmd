@@ -44,43 +44,11 @@ This is a basic example which shows you how to solve a common problem:
 library(package.test.11.15)
 ## basic example code
 head(mtcars)
-#                   mpg cyl disp  hp drat    wt  qsec vs am gear carb
-# Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
-# Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
-# Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
-# Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
-# Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
-# Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1
+
 model <- lm_mat("mpg", c("drat", "disp", "wt"), mtcars, beta0 = TRUE)
 names(model)
-# [1] "xvar"      "yvar"      "Dataset"   "selected"  "beta0"     "N"         "p"        
-# [8] "X"         "Y"         "H"         "Y_hat"     "residuals"
 
 coef1(model)
-# $Coefficients
-#                Estimate  Std.Error   t_value      p_value Sig.
-# (Intercept) 34.66099474 2.54700388 13.608536 4.019007e-14  ***
-# cyl         -1.58727681 0.71184427 -2.229809 3.366495e-02    *
-# disp        -0.02058363 0.01025748 -2.006696 5.418572e-02    .
-
-# $F_test
-#                F_value df1 df2      p_value Sig.
-# F test result 45.80755   2  29 1.057904e-09  ***
-
-# $Signif.codes
-# [1] "0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1"
-
-# $Adj.R_square
-# [1] 0.7429841
-
-# $R_square
-# [1] 0.7595658
-
-# $Covariance_matrix
-#             (Intercept)          cyl          disp
-# (Intercept)  6.48722874 -1.615718386  0.0164777387
-# cyl         -1.61571839  0.506722267 -0.0065863960
-# disp         0.01647774 -0.006586396  0.0001052158
 ```
 
 

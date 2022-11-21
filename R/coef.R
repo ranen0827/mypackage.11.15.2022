@@ -14,11 +14,11 @@
 #'coef1(model_SLR)
 #'
 #'## MLR (Multiple Linear Regression with intercept)
-#'model_MLR1 = lm_mat("mpg", c("cyl", "disp"), mtcars, beta0 = TRUE))
+#'model_MLR1 = lm_mat("mpg", c("cyl", "disp"), mtcars, beta0 = TRUE)
 #'coef1(model_MLR1)
 #'
 #'## MLR (Multiple Linear Regression without intercept)
-#'model_MLR2 = lm_mat("mpg", c("cyl", "disp"), mtcars, beta0 = FALSE))
+#'model_MLR2 = lm_mat("mpg", c("cyl", "disp"), mtcars, beta0 = FALSE)
 #'coef1(model_MLR2)
 #'
 #'@export
@@ -65,7 +65,7 @@ coef1 <- function(model){
            ifelse(x>0.05,".",
                   ifelse(x>0.01,"*",
                          ifelse(x>0.001,"**",
-                                ifelse(x>0,"***")))))
+                                ifelse(x>0,"***","×")))))
   }
 
   coef_tbl <- data.frame(

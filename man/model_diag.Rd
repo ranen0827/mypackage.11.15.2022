@@ -23,11 +23,11 @@ model_SLR = lm_mat("mpg", c("cyl"), mtcars, beta0 = TRUE)
 model_diag(model_SLR)
 
 ## MLR (Multiple Linear Regression with intercept)
-model_MLR1 = lm_mat("mpg", c("cyl", "disp"), mtcars, beta0 = TRUE))
+model_MLR1 = lm_mat("mpg", c("cyl", "disp"), mtcars, beta0 = TRUE)
 model_diag(model_MLR1)
 
 ## MLR (Multiple Linear Regression without intercept)
-model_MLR2 = lm_mat("mpg", c("cyl", "disp"), mtcars, beta0 = FALSE))
+model_MLR2 = lm_mat("mpg", c("cyl", "disp"), mtcars, beta0 = FALSE)
 model_diag(model_MLR2)
 
 }

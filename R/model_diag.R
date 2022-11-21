@@ -15,11 +15,11 @@
 #'model_diag(model_SLR)
 #'
 #'## MLR (Multiple Linear Regression with intercept)
-#'model_MLR1 = lm_mat("mpg", c("cyl", "disp"), mtcars, beta0 = TRUE))
+#'model_MLR1 = lm_mat("mpg", c("cyl", "disp"), mtcars, beta0 = TRUE)
 #'model_diag(model_MLR1)
 #'
 #'## MLR (Multiple Linear Regression without intercept)
-#'model_MLR2 = lm_mat("mpg", c("cyl", "disp"), mtcars, beta0 = FALSE))
+#'model_MLR2 = lm_mat("mpg", c("cyl", "disp"), mtcars, beta0 = FALSE)
 #'model_diag(model_MLR2)
 #'
 #'@export
@@ -28,8 +28,6 @@
 #'
 
 model_diag <- function(model){
-  library(ggplot2)
-  library(ggpubr)
   a <- ggplot(data.frame(y = model$residuals), aes(sample = y))+
     theme_bw()+
     theme(plot.title=element_text(face='bold',hjust=0.5))+
