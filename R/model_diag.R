@@ -22,14 +22,16 @@
 #'model_MLR2 = lm_mat("mpg", c("cyl", "disp"), mtcars, beta0 = FALSE)
 #'model_diag(model_MLR2)
 #'
+#'@import ggplot2
+#'@import ggpubr
+#'@importFrom stats dnorm sd
+#'
 #'@export
 #'
 #'
 #'
 
 model_diag <- function(model){
-  library(ggplot2)
-  library(ggpubr)
   a <- ggplot(data.frame(y = model$residuals), aes(sample = y))+
     theme_bw()+
     theme(plot.title=element_text(face='bold',hjust=0.5))+

@@ -13,14 +13,17 @@ lm_mat(Y_lab, X_lab, data, beta0 = TRUE)
 
 \item{data}{data frame from which the variables are selected}
 
-\item{beta0}{Intercept should be included if `beta0`=`TRUE`, or not if `beta0`=`FALSE`}
+\item{beta0}{Intercept should be included if `beta0`=`TRUE`, or not if `beta0`=`FALSE`.}
 }
 \value{
 basic information from Y and X, as well as matrix notations frequently used
 }
 \description{
+lm_mat
+}
+\details{
 Gets the matrix notation and basic information
-from outcome(Y) and predictors(X) constructing a linear model
+from outcome(Y) and predictors(X) constructing a linear model.
 }
 \examples{
 ## SLR (Simple Linear Regression)

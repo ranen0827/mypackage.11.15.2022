@@ -21,6 +21,7 @@
 #'model_MLR2 = lm_mat("mpg", c("cyl", "disp"), mtcars, beta0 = FALSE)
 #'coef1(model_MLR2)
 #'
+#'@importFrom stats pf pt
 #'@export
 #'
 #'

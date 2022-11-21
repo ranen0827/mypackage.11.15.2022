@@ -1,12 +1,12 @@
-#'lm_mat
+#'@title lm_mat
 #'
-#'Gets the matrix notation and basic information
-#'from outcome(Y) and predictors(X) constructing a linear model
+#'@details Gets the matrix notation and basic information
+#'from outcome(Y) and predictors(X) constructing a linear model.
 #'
 #'@param Y_lab the name of the outcome(Y) variable (characters)
 #'@param X_lab the name(s) of the predictor(s) (characters)
 #'@param data data frame from which the variables are selected
-#'@param beta0 Intercept should be included if `beta0`=`TRUE`, or not if `beta0`=`FALSE`
+#'@param beta0 Intercept should be included if `beta0`=`TRUE`, or not if `beta0`=`FALSE`.
 #'
 #'
 #'
@@ -37,7 +37,7 @@ lm_mat <- function(Y_lab, X_lab, data, beta0 = TRUE) {
   if (!is.data.frame(data))
     stop("param 'data' must be a data frame")
   ## potential_error: Y_lab or X_lab not in the data frame --> stop
-  if (!(Y_lab %in% names(data)) || !(X_lab %in% names(data))) {
+  if (!(Y_lab %in% names(data)) || !all((X_lab %in% names(data)))) {
     stop(gettextf(
       "name of X or Y not in the %s data frame",
       as.character(substitute(data))

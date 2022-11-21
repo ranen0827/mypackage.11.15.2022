@@ -21,6 +21,10 @@
 #'model_MLR2 = lm_mat("mpg", c("cyl", "disp"), mtcars, beta0 = FALSE)
 #'eda(mtcars[,c(model_MLR2$yvar, model_MLR2$xvar)])
 #'
+#'@importFrom graphics hist pairs panel.smooth par rect strwidth text
+#'@importFrom stats cor
+#'
+#'
 #'@export
 #'
 #'
