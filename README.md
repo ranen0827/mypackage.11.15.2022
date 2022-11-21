@@ -1,18 +1,28 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# Linear model
+# lmarr
 
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/ranen0827/mypackage.11.15.2022/workflows/R-CMD-check/badge.svg)](https://github.com/ranen0827/mypackage.11.15.2022/actions)
 <!-- badges: end -->
 
-The goal of package.test.11.15 is to …
-
 ## Functions
 
-`lm_mat()` creates the design matrix, Y, as well as H_matrix for future
+-   `lm_mat()` gives basic information of the variables from the linear
+    model, as well as matrix notations useful for further calculation
+-   `coef1()` creates coefficient table of the linear model, calculate R
+    squared and Adjusted R squared, as well as covariance matrix of the
+    model
+-   `model_diag()` creates useful diagrams for model diagnostics (using
+    residuals![\\hat{\\epsilon}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Chat%7B%5Cepsilon%7D "\hat{\epsilon}"),
+    fitted values
+    ![\\hat{Y}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Chat%7BY%7D "\hat{Y}")
+    and original values
+    ![\\hat{Y}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Chat%7BY%7D "\hat{Y}"))
+-   `eda()` creates useful diagrams for Exploratory Data Analysis (EDA)
+    of the variables selected from data frames
 
 ## Installation
 
@@ -24,43 +34,98 @@ You can install the development version of package.test.11.15 from
 devtools::install_github("ranen0827/mypackage.11.15.2022")
 ```
 
-## Example
+## Usage
 
 This is a basic example which shows you how to solve a common problem:
 
 ``` r
 library(package.test.11.15)
-#> 
-#> Attaching package: 'package.test.11.15'
-#> The following object is masked from 'package:stats':
-#> 
-#>     coef
 ## basic example code
-```
+head(mtcars)
+#>                    mpg cyl disp  hp drat    wt  qsec vs am gear carb
+#> Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+#> Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+#> Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
+#> Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
+#> Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
+#> Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1
+#                   mpg cyl disp  hp drat    wt  qsec vs am gear carb
+# Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+# Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+# Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
+# Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
+# Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
+# Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1
+model <- lm_mat("mpg", c("drat", "disp", "wt"), mtcars, beta0 = TRUE)
+names(model)
+#>  [1] "xvar"      "yvar"      "Dataset"   "selected"  "beta0"     "N"        
+#>  [7] "p"         "X"         "Y"         "H"         "Y_hat"     "residuals"
+# [1] "xvar"      "yvar"      "Dataset"   "selected"  "beta0"     "N"         "p"        
+# [8] "X"         "Y"         "H"         "Y_hat"     "residuals"
 
-What is special about using `README.Rmd` instead of just `README.md`?
-You can include R chunks like so:
+coef1(model)
+#> $Coefficients
+#>                Estimate   Std.Error    t_value      p_value Sig.
+#> (Intercept) 31.04325728 7.099791769  4.3724180 0.0001537253  ***
+#> drat         0.84396531 1.455050731  0.5800247 0.5665366794     
+#> disp        -0.01638916 0.009578313 -1.7110692 0.0981268355    .
+#> wt          -3.17248250 1.217156605 -2.6064703 0.0144951539    *
+#> 
+#> $F_test
+#>    F_value df1 df2      p_value Sig.
+#>   33.78303   3  28 1.920364e-09  ***
+#> 
+#> $Signif.codes
+#> [1] "0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1"
+#> 
+#> $Adj.R_square
+#> [1] 0.7603385
+#> 
+#> $R_square
+#> [1] 0.7835315
+#> 
+#> $Covariance_matrix
+#>             (Intercept)         drat          disp           wt
+#> (Intercept) 50.40704316 -9.826936403 -4.214550e-03 -4.295412797
+#> drat        -9.82693640  2.117172629  3.350457e-03  0.447391094
+#> disp        -0.00421455  0.003350457  9.174408e-05 -0.009014825
+#> wt          -4.29541280  0.447391094 -9.014825e-03  1.481470200
+# $Coefficients
+#                Estimate  Std.Error   t_value      p_value Sig.
+# (Intercept) 34.66099474 2.54700388 13.608536 4.019007e-14  ***
+# cyl         -1.58727681 0.71184427 -2.229809 3.366495e-02    *
+# disp        -0.02058363 0.01025748 -2.006696 5.418572e-02    .
+
+# $F_test
+#                F_value df1 df2      p_value Sig.
+# F test result 45.80755   2  29 1.057904e-09  ***
+
+# $Signif.codes
+# [1] "0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1"
+
+# $Adj.R_square
+# [1] 0.7429841
+
+# $R_square
+# [1] 0.7595658
+
+# $Covariance_matrix
+#             (Intercept)          cyl          disp
+# (Intercept)  6.48722874 -1.615718386  0.0164777387
+# cyl         -1.61571839  0.506722267 -0.0065863960
+# disp         0.01647774 -0.006586396  0.0001052158
+```
 
 ``` r
-summary(cars)
-#>      speed           dist       
-#>  Min.   : 4.0   Min.   :  2.00  
-#>  1st Qu.:12.0   1st Qu.: 26.00  
-#>  Median :15.0   Median : 36.00  
-#>  Mean   :15.4   Mean   : 42.98  
-#>  3rd Qu.:19.0   3rd Qu.: 56.00  
-#>  Max.   :25.0   Max.   :120.00
+model_diag(model)
+#> `geom_smooth()` using formula 'y ~ x'
+#> `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
-You’ll still need to render `README.Rmd` regularly, to keep `README.md`
-up-to-date. `devtools::build_readme()` is handy for this. You could also
-use GitHub Actions to re-render `README.Rmd` every time you push. An
-example workflow can be found here:
-<https://github.com/r-lib/actions/tree/v1/examples>.
+<img src="man/figures/README-model_diagnostics-1.png" width="100%" />
 
-You can also embed plots, for example:
+``` r
+eda(mtcars[,c(model$yvar, model$xvar)])
+```
 
-<img src="man/figures/README-pressure-1.png" width="100%" />
-
-In that case, don’t forget to commit and push the resulting figure
-files, so they display on GitHub and CRAN.
+<img src="man/figures/README-eda-1.png" width="100%" />

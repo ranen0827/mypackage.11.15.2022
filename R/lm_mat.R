@@ -1,3 +1,32 @@
+#'lm_mat
+#'
+#'Gets the matrix notation and basic information
+#'from outcome(Y) and predictors(X) constructing a linear model
+#'
+#'@param Y_lab the name of the outcome(Y) variable (characters)
+#'@param X_lab the name(s) of the predictor(s) (characters)
+#'@param data data frame from which the variables are selected
+#'@param beta0 Intercept should be included if `beta0`=`TRUE`, or not if `beta0`=`FALSE`
+#'
+#'
+#'
+#'@return basic information from Y and X, as well as matrix notations frequently used
+#'
+#'@examples
+#'## SLR (Simple Linear Regression)
+#'lm_mat("mpg", c("cyl"), mtcars, beta0 = TRUE)
+#'
+#'## MLR (Multiple Linear Regression with intercept)
+#'lm_mat("mpg", c("cyl", "disp"), mtcars, beta0 = TRUE))
+#'lm_mat("mpg", c("cyl", "disp"), mtcars, beta0 = TRUE))
+#'
+#'## MLR (Multiple Linear Regression without intercept)
+#'lm_mat("mpg", c("cyl", "disp"), mtcars, beta0 = FALSE))
+#'
+#'@export
+#'
+#'
+#'
 # MLR beta coefficient
 ## input: data, output: design matrix of the model
 ## model preparations
@@ -25,8 +54,6 @@ lm_mat <- function(Y_lab, X_lab, data, beta0 = TRUE) {
 
   H = X %*% solve(t(X) %*% X) %*% t(X)
   Y_hat <- H %*% Y
-
-
   return(list(xvar = X_lab,
               yvar = Y_lab,
               Dataset = data,
@@ -42,11 +69,3 @@ lm_mat <- function(Y_lab, X_lab, data, beta0 = TRUE) {
 }
 
 
-# solve beta0 using matrix notation
-
-b <- function(){
-  return(a=c(2,1))
-}
-
-
-lm_mat("mpg", c("cyl","disp"), mtcars)

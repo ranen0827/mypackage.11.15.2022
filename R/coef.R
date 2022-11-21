@@ -1,14 +1,43 @@
+#'coef1
+#'
+#'Parameter estimation and inference of the linear model
+#'
+#'@param model the list derived from lm_mat() function
+#'
+#'
+#'@return coefficient table of the linear model, R squared and Adjusted R squared,
+#'as well as covariance matrix of the model
+#'
+#'@examples
+#'## SLR (Simple Linear Regression)
+#'model_SLR = lm_mat("mpg", c("cyl"), mtcars, beta0 = TRUE)
+#'coef1(model_SLR)
+#'
+#'## MLR (Multiple Linear Regression with intercept)
+#'model_MLR1 = lm_mat("mpg", c("cyl", "disp"), mtcars, beta0 = TRUE))
+#'coef1(model_MLR1)
+#'
+#'## MLR (Multiple Linear Regression without intercept)
+#'model_MLR2 = lm_mat("mpg", c("cyl", "disp"), mtcars, beta0 = FALSE))
+#'coef1(model_MLR2)
+#'
+#'@export
+#'
+#'
+#'
+
 ### Estimation: betahat and var(betahat) ###
 ### Inference: t statistic and p val for H0: beta = 0 ###
-coef <- function(model){
+coef1 <- function(model){
   beta0 <- model$beta0
   data <- model$Dataset
-  X_lab <- if(beta0){c("(Intercept)",model_mat$xvar)}else{model_mat$xvar}
+  X_lab <- if(beta0){c("(Intercept)",model$xvar)}else{model$xvar}
   X <- model$X
   Y <- model$Y
   H <- model$H
   n <- model$N
   p <- model$p
+  Y_hat <- model$Y_hat
   ## coefficients beta (including beta 0)
   beta <- solve(t(X) %*% X) %*% t(X) %*% Y
   resids <- Y - Y_hat
@@ -61,7 +90,6 @@ coef <- function(model){
 
 
 
-summary(model)
 '
 Coefficients:
             Estimate Std. Error t value Pr(>|t|)
@@ -75,6 +103,4 @@ Residual standard error: 3.055 on 29 degrees of freedom
 Multiple R-squared:  0.7596,	Adjusted R-squared:  0.743
 F-statistic: 45.81 on 2 and 29 DF,  p-value: 1.058e-09
 '
-a = lm_mat("mpg", c("cyl","disp"), mtcars)
-coef(a)
 
