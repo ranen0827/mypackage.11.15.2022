@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# lmarr
+# package.test.11.15
 
 <!-- badges: start -->
 
@@ -9,6 +9,26 @@
 [![Codecov test
 coverage](https://codecov.io/gh/ranen0827/mypackage.11.15.2022/branch/master/graph/badge.svg)](https://app.codecov.io/gh/ranen0827/mypackage.11.15.2022?branch=master)
 <!-- badges: end -->
+
+## Simple/Multiple Linear Regression model
+
+If a single predictor X that has a linear relationship with a response
+y, we can build a regression model to analyze their relationship.
+
+-   Consider a SLR (Simple Linear Regression) model:
+
+    ![Y\_{i} = \\beta\_{0}+\\beta\_{1}X\_{i}+\\epsilon\_{i}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;Y_%7Bi%7D%20%3D%20%5Cbeta_%7B0%7D%2B%5Cbeta_%7B1%7DX_%7Bi%7D%2B%5Cepsilon_%7Bi%7D "Y_{i} = \beta_{0}+\beta_{1}X_{i}+\epsilon_{i}")
+-   Consider a MLR (Multiple Linear Regression) model:
+
+    ![Y\_{i} = \\beta\_{0}+\\beta\_{1}X\_{i}+\\beta\_{2}X\_{i}+...+\\beta\_{p-1}X\_{i}+\\epsilon\_{i}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;Y_%7Bi%7D%20%3D%20%5Cbeta_%7B0%7D%2B%5Cbeta_%7B1%7DX_%7Bi%7D%2B%5Cbeta_%7B2%7DX_%7Bi%7D%2B...%2B%5Cbeta_%7Bp-1%7DX_%7Bi%7D%2B%5Cepsilon_%7Bi%7D "Y_{i} = \beta_{0}+\beta_{1}X_{i}+\beta_{2}X_{i}+...+\beta_{p-1}X_{i}+\epsilon_{i}")
+
+## Regression Model without intercept
+
+-   Sometimes we may not need intercept (e.g. Categorical variables with
+    all dummy variables included in the model), we can conduct linear
+    regression model without intercept, the model looks like this:  
+
+    ![Y\_{i} = \\beta\_{1}X\_{i}+\\beta\_{2}X\_{i}+...+\\beta\_{p-1}X\_{i}+\\epsilon\_{i}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;Y_%7Bi%7D%20%3D%20%5Cbeta_%7B1%7DX_%7Bi%7D%2B%5Cbeta_%7B2%7DX_%7Bi%7D%2B...%2B%5Cbeta_%7Bp-1%7DX_%7Bi%7D%2B%5Cepsilon_%7Bi%7D "Y_{i} = \beta_{1}X_{i}+\beta_{2}X_{i}+...+\beta_{p-1}X_{i}+\epsilon_{i}")
 
 ## Functions
 
@@ -18,13 +38,14 @@ coverage](https://codecov.io/gh/ranen0827/mypackage.11.15.2022/branch/master/gra
     squared and Adjusted R squared, as well as covariance matrix of the
     model
 -   `model_diag()` creates useful diagrams for model diagnostics (using
-    residuals![\\hat{\\epsilon}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Chat%7B%5Cepsilon%7D "\hat{\epsilon}"),
+    residuals
+    ![\\hat{\\epsilon}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Chat%7B%5Cepsilon%7D "\hat{\epsilon}"),
     fitted values
     ![\\hat{Y}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Chat%7BY%7D "\hat{Y}")
     and original values
     ![\\hat{Y}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Chat%7BY%7D "\hat{Y}"))
--   `eda()` creates useful diagrams for Exploratory Data Analysis (EDA)
-    of the variables selected from data frames
+-   `eda()` creates useful diagrams for *Exploratory Data Analysis*
+    (EDA) of the variables selected from data frames
 
 ## Installation
 
@@ -33,7 +54,7 @@ You can install the development version of package.test.11.15 from
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("ranen0827/mypackage.11.15.2022")
+devtools::install_github("ranen0827/mypackage.11.15.2022", build_vignettes = T)
 ```
 
 ## Usage
@@ -99,3 +120,5 @@ eda(mtcars[,c(model$yvar, model$xvar)])
 ```
 
 <img src="man/figures/README-eda-1.png" width="100%" />
+
+    #> [1] "plot complete"

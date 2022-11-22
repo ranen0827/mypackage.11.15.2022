@@ -35,6 +35,8 @@
 #'@export
 #'
 #'
+#'@author Shushun Ren, email: \email{shushunr@umich.edu}
+#'
 #'
 
 model_diag <- function(model){

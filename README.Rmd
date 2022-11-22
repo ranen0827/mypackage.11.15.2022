@@ -13,20 +13,33 @@ knitr::opts_chunk$set(
 )
 ```
 
-# lmarr
+# package.test.11.15
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/ranen0827/mypackage.11.15.2022/workflows/R-CMD-check/badge.svg)](https://github.com/ranen0827/mypackage.11.15.2022/actions)
 [![Codecov test coverage](https://codecov.io/gh/ranen0827/mypackage.11.15.2022/branch/master/graph/badge.svg)](https://app.codecov.io/gh/ranen0827/mypackage.11.15.2022?branch=master)
 <!-- badges: end -->
 
+## Simple/Multiple Linear Regression model  
+If a single predictor X that has a linear relationship with a response y, we can build a regression model to analyze their relationship.
+
+* Consider a SLR (Simple Linear Regression) model:
+$$Y_{i} = \beta_{0}+\beta_{1}X_{i}+\epsilon_{i}$$
+* Consider a MLR (Multiple Linear Regression) model:
+$$Y_{i} = \beta_{0}+\beta_{1}X_{i}+\beta_{2}X_{i}+...+\beta_{p-1}X_{i}+\epsilon_{i}$$
+
+
+## Regression Model without intercept  
+* Sometimes we may not need intercept (e.g. Categorical variables with all dummy variables included in the model), we can conduct linear regression model without intercept, the model looks like this:  
+$$Y_{i} = \beta_{1}X_{i}+\beta_{2}X_{i}+...+\beta_{p-1}X_{i}+\epsilon_{i}$$
+
 
 ## Functions
 
 * `lm_mat()` gives basic information of the variables from the linear model, as well as matrix notations useful for further calculation
 * `coef1()` creates coefficient table of the linear model, calculate R squared and Adjusted R squared, as well as covariance matrix of the model
-* `model_diag()` creates useful diagrams for model diagnostics (using residuals$\hat{\epsilon}$, fitted values $\hat{Y}$ and original values $\hat{Y}$)
-* `eda()` creates useful diagrams for Exploratory Data Analysis (EDA) of the variables selected from data frames
+* `model_diag()` creates useful diagrams for model diagnostics (using residuals $\hat{\epsilon}$, fitted values $\hat{Y}$ and original values $\hat{Y}$)
+* `eda()` creates useful diagrams for *Exploratory Data Analysis* (EDA) of the variables selected from data frames
 
 ## Installation
 
@@ -34,7 +47,7 @@ You can install the development version of package.test.11.15 from [GitHub](http
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("ranen0827/mypackage.11.15.2022")
+devtools::install_github("ranen0827/mypackage.11.15.2022", build_vignettes = T)
 ```
 
 ## Usage

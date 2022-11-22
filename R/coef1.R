@@ -33,6 +33,7 @@
 #'@export
 #'
 #'
+#'@author Shushun Ren, email: \email{shushunr@umich.edu}
 #'
 
 ### Estimation: betahat and var(betahat)

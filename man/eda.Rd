@@ -24,14 +24,17 @@ Exploratory Data Analysis of the selected variables from linear model
 \examples{
 ## SLR (Simple Linear Regression)
 model_SLR = lm_mat("mpg", c("cyl"), mtcars, beta0 = TRUE)
-eda(mtcars[,c(model_SLR$yvar, model_SLR$xvar)])
+eda(model_SLR$selected)
 
 ## MLR (Multiple Linear Regression with intercept)
 model_MLR1 = lm_mat("mpg", c("cyl", "disp"), mtcars, beta0 = TRUE)
-eda(mtcars[,c(model_MLR1$yvar, model_MLR1$xvar)])
+eda(model_MLR1$selected)
 
 ## MLR (Multiple Linear Regression without intercept)
 model_MLR2 = lm_mat("mpg", c("cyl", "disp"), mtcars, beta0 = FALSE)
-eda(mtcars[,c(model_MLR2$yvar, model_MLR2$xvar)])
+eda(model_MLR2$selected)
 
+}
+\author{
+Shushun Ren, email: \email{shushunr@umich.edu}
 }

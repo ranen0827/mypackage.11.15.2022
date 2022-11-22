@@ -36,3 +36,6 @@ model_MLR2 = lm_mat("mpg", c("cyl", "disp"), mtcars, beta0 = FALSE)
 coef1(model_MLR2)
 
 }
+\author{
+Shushun Ren, email: \email{shushunr@umich.edu}
+}
