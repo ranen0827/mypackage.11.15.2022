@@ -1,13 +1,19 @@
-#'model_diag
+#'@title model_diag
 #'
-#'Model diagnostics of the established Linear Model
+#'@description Model diagnostics of the established Linear Model
 #'
 #'@param model the list derived from lm_mat() function
 #'
 #'
-#'@return Diagrams for model diagnostics (including (1) Normal Q-Q plot;
-#'(2) Scatterplot between Fitted values (Y hat) vs. Residuals); (3) Histogram of residuals;
-#'(4) Scatterplot between Fitted values (Y hat) vs. Original Values (Y)
+#'@return Diagrams for model diagnostics, including the following plots:
+#'
+#'1) Normal Q-Q plot;
+#'
+#'2) Scatterplot between Fitted values (Y hat) vs. Residuals;
+#'
+#'3) Histogram of residuals;
+#'
+#'4) Scatterplot between Fitted values (Y hat) vs. Original Values (Y)
 #'
 #'@examples
 #'## SLR (Simple Linear Regression)

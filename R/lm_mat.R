@@ -1,5 +1,7 @@
 #'@title lm_mat
 #'
+#'@description Gets the matrix notation and basic information from outcome(Y) and predictors(X) constructing a linear model.
+#'
 #'@details Gets the matrix notation and basic information
 #'from outcome(Y) and predictors(X) constructing a linear model.
 #'
@@ -10,7 +12,20 @@
 #'
 #'
 #'
-#'@return basic information from Y and X, as well as matrix notations frequently used
+#'@return A list containing basic information from Y and X, as well as matrix notations frequently used, described as follows
+#'
+#'\item{xvar}{A vector containing names of input predictors(X)}
+#'\item{yvar}{A vector containing names of input response(Y)}
+#'\item{Dataset}{The input dataset}
+#'\item{selected}{Selected data frame of all required variables}
+#'\item{beta0}{A boolean variable indicating whether the linear model includes intercept or not}
+#'\item{N}{Number of row(s) (observation(s)) in the original dataset}
+#'\item{p}{Number of parameters (beta's) in the linear model}
+#'\item{X}{Design matrix of the model}
+#'\item{Y}{Response variable of the model}
+#'\item{H}{The "hat" matrix of the model}
+#'\item{Y_hat}{Fitted values vector of the model}
+#'\item{residuals}{Residuals vector of the model}
 #'
 #'@examples
 #'## SLR (Simple Linear Regression)
@@ -24,6 +39,8 @@
 #'lm_mat("mpg", c("cyl", "disp"), mtcars, beta0 = FALSE)
 #'
 #'@export
+#'
+#'@author Shushun Ren, email: \email{shushunr@umich.edu}
 #'
 #'
 #'

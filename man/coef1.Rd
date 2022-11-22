@@ -10,8 +10,14 @@ coef1(model)
 \item{model}{the list derived from lm_mat() function}
 }
 \value{
-coefficient table of the linear model, R squared and Adjusted R squared,
-as well as covariance matrix of the model
+Coefficient table of the linear model, R squared and Adjusted R squared, as well as covariance matrix of the model
+
+\item{Coefficients}{The coefficients table of the linear model containing estimates of the parameter, standardized error, t-value, p-value as well as its significance}
+\item{F-test}{F-test result containing F-value, 2 separate degrees of freedom, and p-value}
+\item{Signif.codes}{Significance level defined by default}
+\item{Adj.R_square}{Adjusted R-square of the model}
+\item{R_square}{R-square of the model}
+\item{Covariance_matrix}{Covariance_matrix of the model}
 }
 \description{
 Parameter estimation and inference of the linear model

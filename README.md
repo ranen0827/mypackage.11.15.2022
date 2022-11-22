@@ -6,6 +6,8 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/ranen0827/mypackage.11.15.2022/workflows/R-CMD-check/badge.svg)](https://github.com/ranen0827/mypackage.11.15.2022/actions)
+[![Codecov test
+coverage](https://codecov.io/gh/ranen0827/mypackage.11.15.2022/branch/master/graph/badge.svg)](https://app.codecov.io/gh/ranen0827/mypackage.11.15.2022?branch=master)
 <!-- badges: end -->
 
 ## Functions
@@ -68,7 +70,7 @@ coef1(model)
 #>   33.78303   3  28 1.920364e-09  ***
 #> 
 #> $Signif.codes
-#> [1] "0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1"
+#> [1] "0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1"
 #> 
 #> $Adj.R_square
 #> [1] 0.7603385

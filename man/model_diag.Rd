@@ -10,9 +10,15 @@ model_diag(model)
 \item{model}{the list derived from lm_mat() function}
 }
 \value{
-Diagrams for model diagnostics (including (1) Normal Q-Q plot;
-(2) Scatterplot between Fitted values (Y hat) vs. Residuals); (3) Histogram of residuals;
-(4) Scatterplot between Fitted values (Y hat) vs. Original Values (Y)
+Diagrams for model diagnostics, including the following plots:
+
+1) Normal Q-Q plot;
+
+2) Scatterplot between Fitted values (Y hat) vs. Residuals;
+
+3) Histogram of residuals;
+
+4) Scatterplot between Fitted values (Y hat) vs. Original Values (Y)
 }
 \description{
 Model diagnostics of the established Linear Model

@@ -10,8 +10,13 @@ eda(model_df)
 \item{model_df}{Data frame containing potential variables from the dataset}
 }
 \value{
-Diagram matrices containing scatterplot between variables (at lower triangle of the matrix),
-histogram and name of certain variables (at diagonal), as well as correlation coefficients (at upper triangle of the matrix)
+Model diagnostics diagram, described as follows:
+
+1) Scatterplot between variables at lower triangle of the matrix
+
+2) Histogram and name of variables at diagonal
+
+3) Correlation coefficients at upper triangle of the matrix
 }
 \description{
 Exploratory Data Analysis of the selected variables from linear model

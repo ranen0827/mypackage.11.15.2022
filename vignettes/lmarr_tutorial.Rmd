@@ -1,0 +1,235 @@
+---
+title: "lmarr_tutorial"
+output: rmarkdown::html_vignette
+description: 
+vignette: >
+  %\VignetteIndexEntry{lmarr_tutorial}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(package.test.11.15)
+```
+
+## Basic ideas
+* Consider a MLR (Multiple Linear Regression) model:
+$$Y_{i} = \beta_{0}+\beta_{1}X_{i}+\beta_{2}X_{i}+\epsilon_{i}$$, where
+Y = ..., X = ..., e = ..., β = ...
+
+## `lm_mat`: Gets the matrix notation and basic information from outcome(Y) and predictors(X) constructing a linear model.
+
+```{r}
+## Input parameters, able to be edited
+# Response variable
+y <- c("mpg")
+# Predictors
+x <- c("cyl", "disp")
+# Dataset
+data <- mtcars
+# Whether included beta0 or not
+beta0 <- TRUE
+
+model <- lm_mat(y, x, mtcars, beta0)
+model1 <- lm(mpg~cyl+disp, data=mtcars)
+## Variable names of the returned list
+names(model)
+```
+The export list includes a set of variables as follows:  
+
+### Basic information:  
+* `xvar`: A vector containing names of input predictors ($X$)  
+* `yvar`: A vector containing names of input response ($Y$)  
+* `Dataset`: Same as input dataset  
+* `selected`: Selected data frame of all required variables  
+* `beta0`: A boolean variable indicating whether the linear model includes intercept or not  
+* `N`: Number of row(s) (observation(s)) in the original dataset  
+* `p`: Number of parameters (beta's) in the linear model  
+
+### Matrix Notation:  
+* `X`: Model design matrix  
+* `Y`: Response variable  
+* `H`: The "hat" matrix - $X(X^{T}X)^{-1}X^{T}$  
+* `Y_hat`: Fitted values, $\hat{Y}$  
+* `residuals`: Model residuals, $\hat{\epsilon}$
+
+
+```{r}
+## Using all.equal and bench::mark to check both correctness and efficiency of the function lm_mat
+### Correctness using all.equal
+stopifnot(all.equal(model$xvar,x)) # orders matter
+stopifnot(all.equal(model$yvar,y))
+stopifnot(all.equal(model$Dataset,data))
+stopifnot(all.equal(model$selected,data[,c(y,x)]))
+stopifnot(all.equal(model$beta0, beta0))
+stopifnot(all.equal(model$N,nrow(data)))
+stopifnot(all.equal(model$p,beta0 + length(x)))
+stopifnot(all(model$X == matrix(c(rep(1,nrow(mtcars)), mtcars[,"cyl"], mtcars[, "disp"]), nrow(mtcars), 3)))
+stopifnot(all.equal(c(model$Y),data[,y]))
+X <- matrix(c(rep(1,nrow(data)), data[,x[1]], data[,x[2]]),nrow(data),3)
+stopifnot(all.equal(model$H, X %*% solve(t(X) %*% X) %*% t(X)))
+stopifnot(all.equal(model$Y_hat, X %*% solve(t(X) %*% X) %*% t(X) %*% data[,y]))
+stopifnot(all.equal(model$residuals, data[,y] - c(X %*% solve(t(X) %*% X) %*% t(X) %*% data[,y])))
+print("all the return values from function 'lm_mat' have been verified")
+
+### Efficiency using bench::mark
+bench::mark(model$xvar, c("cyl", "disp"))
+
+bench::mark(
+  model$yvar,
+  c("mpg"))
+
+bench::mark(
+  model$p,
+  beta0+length(c("cyl", "disp")))
+
+bench::mark(
+  model$X[,1],
+  matrix(c(rep(1,nrow(data)), mtcars[,"cyl"], mtcars[, "disp"]), nrow(mtcars), 3)[,1])
+
+bench::mark(
+  model$X[,2],
+  matrix(c(rep(1,nrow(data)), mtcars[,"cyl"], mtcars[, "disp"]), nrow(mtcars), 3)[,2])
+
+bench::mark(
+  model$X[,3],
+  matrix(c(rep(1,nrow(data)), mtcars[,"cyl"], mtcars[, "disp"]), nrow(mtcars), 3)[,3])
+
+bench::mark(
+  model$Y,
+  matrix(c(mtcars[, "mpg"]), nrow(mtcars), 1))
+
+bench::mark(
+  model$H,
+  {X <- matrix(c(rep(1,nrow(mtcars)), mtcars[,"cyl"], data[,"disp"]),nrow(mtcars),3)
+  X %*% solve(t(X) %*% X) %*% t(X)})
+
+bench::mark(
+  model$Y_hat,
+  {X <- matrix(c(rep(1,nrow(mtcars)), mtcars[,"cyl"], data[,"disp"]),nrow(mtcars),3)
+  X %*% solve(t(X) %*% X) %*% t(X) %*% mtcars[,"mpg"]}
+  )
+
+bench::mark(
+  model$residuals,
+  {X <- matrix(c(rep(1,nrow(mtcars)), mtcars[,"cyl"], data[,"disp"]),nrow(mtcars),3)
+  mtcars[,"mpg"] - c(X %*% solve(t(X) %*% X) %*% t(X) %*% mtcars[,"mpg"])}
+  )
+
+
+```
+
+
+
+
+## `coef1`: Parameter estimation and inference of the linear model  
+```{r}
+coef1 <- coef1(model)
+## Variable names of the returned list
+names(coef1)
+```
+The description of the variables included is as follows:  
+
+* `Coefficients`: coefficient table same as the one in the lm() table, using calculation as follows:  
+$\hat{\beta}$ is calculated using design matrix $X$ and $Y$:
+$$\hat{\beta}=(X^{T}X)^{-1}X^TY$$  
+$se(\hat{\beta})$ is calculated using $\hat{\sigma}^2$ and $X$, where:  
+$$\hat{\sigma}^2=\frac{SSE}{dfE}=\frac{\hat{\epsilon}^T\epsilon}{n-p}$$  
+Therefore,  
+$$diag(\hat{var}(\hat{\beta}))=(\hat{var}(\hat{\beta_{0}}), \hat{var}(\hat{\beta_{1}}), ...,\hat{var}(\hat{\beta_{p-1}}))_{1\times p}$$  
+$$t=\frac{\hat{\beta_{k}}}{se(\beta_{k})}$$  
+
+* `F-test`: conduct F-test by using SSR and SSE: $$F = \frac{SSR/(p-1)}{SSE/(n-p)}$$  
+* `Signif.codes`: Significance level denotation
+* `Adj.R_square`: Adjusted R square, calculated by:  
+$$R_{adj}^{2}=1- \frac{SSE/(n-p)}{SSY/(n-1)} $$
+* `R_square`: R square, calculated by:  
+$$R^{2}=1- \frac{SSE}{SSY} $$
+* `Covariance_matrix`: $\hat{var}(\hat{\beta})$, where $(i,j)$ th element $(i≠j)$ is $Cov(\hat{\beta_{i}},\hat{\beta_{j}})$, and the diagonal element is $$\hat{var}(\hat{\beta_{i}})=se(\hat{\beta_{i}})^{2}$$
+
+```{r}
+## Examples of the returned list
+## coefficient table
+## Original model: ~1.1 ms
+bench::mark(
+  summary(lm(mpg~cyl+disp,data=mtcars))$coefficients,
+  summary(lm(mpg~cyl+disp,data=mtcars))$coefficients
+)
+
+## New model: ~500 ns, including significance level
+bench::mark(
+  coef1$Coefficients,
+  coef1$Coefficients
+)
+
+## F-test
+stopifnot(all.equal(as.numeric(coef1$F_test[1:3]), as.numeric(summary(lm(mpg~cyl+disp,data=mtcars))$fstatistic)))
+bench::mark(
+  as.numeric(coef1$F_test[1:3]),
+  as.numeric(summary(lm(mpg~cyl+disp,data=mtcars))$fstatistic)
+)
+
+## Adj. R_square
+stopifnot(all.equal(coef1$Adj.R_square,summary(model1)$adj.r.squared))
+bench::mark(
+  as.numeric(coef1$Adj.R_square),
+  as.numeric(summary(model1)$adj.r.squared)
+)
+
+## R_square
+stopifnot(all.equal(coef1$R_square,summary(model1)$r.squared))
+bench::mark(
+  as.numeric(coef1$R_square),
+  as.numeric(summary(model1)$r.squared)
+)
+
+## Covariance matrix
+stopifnot(all.equal(coef1$Covariance_matrix, vcov(model1)))
+bench::mark(
+  as.numeric(coef1$R_square),
+  as.numeric(summary(model1)$r.squared)
+)
+
+```
+
+## `model_diag`: Model diagnostics of the established Linear Model
+  
+```{r}
+model_MLR1 = lm_mat("mpg", c("cyl", "disp", "qsec"), mtcars, beta0 = TRUE)
+model_diag(model_MLR1)
+
+## As there is no other function that depicts the same plot as our function, we don't use neither all.equal() nor bench::mark().
+```
+  
+**Figure A.**  Normal Q-Q plot, which evaluates how well the distribution of a dataset matches a standard normal (Gaussian) distribution;  
+**Figure B.**  Scatter plot between Fitted values (Y hat) vs. Residuals), which tests the independence of residuals;  
+**Figure C.**  Histogram of residuals, which describes the extent of normality of the model;  
+**Figure D.**  Scatter plot between Fitted values (Y hat) vs. Original Values (Y), which describes the goodness of fit of the model.  
+
+
+## `eda`: Exploratory Data Analysis of the selected variables from linear model
+
+```{r}
+eda(mtcars[,c(model_MLR1$yvar, model_MLR1$xvar)])
+## As this is a customized function, we don't use neither all.equal() nor bench::mark().
+```
+  
+  
+* The above code creates a ($a$ by $a$) matrix (where $a$ is the number of input variables) with one plot at each element. The plot has the following features:  
+
+  + **Lower triangle of the matrix**: Scatter plot and fitted curve between variables  
+  + **Diagonal**: Histograms and names of variables  
+  + **Upper triangle of the matrix**: Correlation coefficients between variables  
+
+**Note**: You can set `beta0` = `FALSE` to construct a linear model without intercept.
+
+
+
+

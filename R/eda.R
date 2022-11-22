@@ -1,12 +1,17 @@
-#'eda
+#'@title eda
 #'
-#'Exploratory Data Analysis of the selected variables from linear model
+#'@description Exploratory Data Analysis of the selected variables from linear model
 #'
 #'@param model_df Data frame containing potential variables from the dataset
 #'
 #'
-#'@return Diagram matrices containing scatterplot between variables (at lower triangle of the matrix),
-#'histogram and name of certain variables (at diagonal), as well as correlation coefficients (at upper triangle of the matrix)
+#'@return Model diagnostics diagram, described as follows:
+#'
+#'1) Scatterplot between variables at lower triangle of the matrix
+#'
+#'2) Histogram and name of variables at diagonal
+#'
+#'3) Correlation coefficients at upper triangle of the matrix
 #'
 #'@examples
 #'## SLR (Simple Linear Regression)

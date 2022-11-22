@@ -1,12 +1,20 @@
-#'coef1
+#'@title coef1
 #'
-#'Parameter estimation and inference of the linear model
+#'@description Parameter estimation and inference of the linear model
 #'
 #'@param model the list derived from lm_mat() function
 #'
 #'
-#'@return coefficient table of the linear model, R squared and Adjusted R squared,
-#'as well as covariance matrix of the model
+#'@return Coefficient table of the linear model, R squared and Adjusted R squared, as well as covariance matrix of the model
+#'
+#'\item{Coefficients}{The coefficients table of the linear model containing estimates of the parameter, standardized error, t-value, p-value as well as its significance}
+#'\item{F-test}{F-test result containing F-value, 2 separate degrees of freedom, and p-value}
+#'\item{Signif.codes}{Significance level defined by default}
+#'\item{Adj.R_square}{Adjusted R-square of the model}
+#'\item{R_square}{R-square of the model}
+#'\item{Covariance_matrix}{Covariance_matrix of the model}
+#'
+#'
 #'
 #'@examples
 #'## SLR (Simple Linear Regression)
@@ -27,8 +35,8 @@
 #'
 #'
 
-### Estimation: betahat and var(betahat) ###
-### Inference: t statistic and p val for H0: beta = 0 ###
+### Estimation: betahat and var(betahat)
+### Inference: t statistic and p val for H0: beta = 0
 coef1 <- function(model){
   beta0 <- model$beta0
   data <- model$Dataset
@@ -47,7 +55,7 @@ coef1 <- function(model){
   SSR <- SSY - SSE
   ## calculating R_square and Adjusted R square
   R_square <- 1 - SSE/SSY
-  Adj.R_square <- 1- (SSE/(n-nrow(beta)))/(SSY/(n-1))
+  Adj.R_square <- 1- (SSE/(n-p))/(SSY/(n-1))
   # sigma_sqr_hat <- SSE/dfE = SSE/(n-p)
   sigma_sqr <- (t(resids) %*% resids) /(n-p)
   # variance beta hat
