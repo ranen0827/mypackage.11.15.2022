@@ -9,7 +9,7 @@ test_that("coef1 function works when beta0 = TRUE", {
 })
 
 test_that("coef1 function works when beta0 = FALSE", {
-  model <- lm_mat("mpg", c("drat", "disp", "wt"), mtcars, beta0 = FALSE)
+  model <- lm_mat("mpg", c("drat", "disp","wt"), mtcars, beta0 = FALSE)
   coef1 <- coef1(model)
   model1 <- lm(mpg~-1+drat+disp+wt, mtcars)
 

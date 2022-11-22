@@ -52,10 +52,12 @@ coef1 <- function(model){
   resids <- Y - Y_hat
   SSE <- t(resids) %*% resids
   SSY <- t(Y-mean(Y)) %*% (Y-mean(Y))
+  if(!beta0){SSY <- t(Y) %*% (Y)}
   SSR <- SSY - SSE
   ## calculating R_square and Adjusted R square
   R_square <- 1 - SSE/SSY
   Adj.R_square <- 1- (SSE/(n-p))/(SSY/(n-1))
+  if(!beta0){Adj.R_square <- 1- (SSE/(n-p))/(SSY/(n))}
   # sigma_sqr_hat <- SSE/dfE = SSE/(n-p)
   sigma_sqr <- (t(resids) %*% resids) /(n-p)
   # variance beta hat
