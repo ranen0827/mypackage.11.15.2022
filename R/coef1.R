@@ -74,7 +74,7 @@ coef1 <- function(model){
            ifelse(x>0.05,".",
                   ifelse(x>0.01,"*",
                          ifelse(x>0.001,"**",
-                                ifelse(x>0,"***","×")))))
+                                ifelse(x>0,"***"," ")))))
   }
 
   coef_tbl <- data.frame(
