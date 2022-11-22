@@ -1,3 +1,4 @@
 test_that("model_diag works", {
-  expect_equal(2 * 2, 4)
+  model <- lm_mat("mpg", c("drat", "disp", "wt"), mtcars, beta0 = TRUE)
+  expect_equal(length(model_diag(model)$layer), 8)
 })
