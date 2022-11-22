@@ -75,9 +75,6 @@ model_diag <- function(model){
             align="hv")
 }
 
-model <- lm_mat("mpg", c("cyl", "disp"), mtcars, beta0 = TRUE)
-
-model_diag(model)
 
 
 
