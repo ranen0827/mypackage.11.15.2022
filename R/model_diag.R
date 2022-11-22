@@ -75,6 +75,7 @@ model_diag <- function(model){
             align="hv")
 }
 
+model2 <- model_diag(model)
 
 
 
