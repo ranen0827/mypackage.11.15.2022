@@ -58,6 +58,7 @@ eda <- function(model_df){
     rect(breaks[-nB], 0, breaks[-1], y, col = "cyan", ...)
   }
   pairs(model_df, lower.panel = panel.smooth, upper.panel = panel.cor, diag.panel = panel.hist)
+  print("plot complete")
 }
 
 
