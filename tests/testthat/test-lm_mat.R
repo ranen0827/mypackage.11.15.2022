@@ -16,3 +16,8 @@ test_that("lm_mat deals with xvar", {
                c("drat", "disp", "wt"))
 })
 
+test_that("lm_mat deals with xvar", {
+  export_equal(lm_mat("mpg", c("drat", "disp", "wt"), as.matrix(mtcars), beta0 = TRUE)$xvar,
+               c("drat", "disp", "wt"))
+})
+
