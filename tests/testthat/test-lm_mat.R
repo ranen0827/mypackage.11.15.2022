@@ -12,7 +12,7 @@ test_that("lm_mat cannot deal with variables' name not in the given dataset", {
   })
 
 test_that("lm_mat cannot deal with variables' name not in the given dataset", {
-  model <- lm_mat("mpg", c("drat", "disp", "wt"), as.matrix(mtcars), beta0 = TRUE)
+  model <- lm_mat("mpg", c("drat", "disp", "wt"), mtcars, beta0 = TRUE)
   X <- matrix(c(rep(1,nrow(data)), data[,x[1]], data[,x[2]]),nrow(data),3)
   expect_equal(model$H, X %*% solve(t(X) %*% X) %*% t(X))
 })
