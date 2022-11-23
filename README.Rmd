@@ -56,23 +56,27 @@ This is a basic example which shows you how to solve a common problem:
 
 ```{r example}
 library(package.test.11.15)
-## basic example code
+## load dataset mtcars
 head(mtcars)
 
+## lm_mat() function -->
 model <- lm_mat("mpg", c("drat", "disp", "wt"), mtcars, beta0 = TRUE)
 names(model)
 
+## coef1() function -->
 coef1(model)
 ```
 
 
 ```{r model_diagnostics}
+## model_diag() function -->
 model_diag(model)
 ```
 
 
 
 ```{r eda}
+## eda() function -->
 eda(mtcars[,c(model$yvar, model$xvar)])
 ```
 

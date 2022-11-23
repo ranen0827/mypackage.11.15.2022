@@ -55,23 +55,26 @@ coef1 <- function(model){
   SSY <- t(Y-mean(Y)) %*% (Y-mean(Y))
   if(!beta0){SSY <- t(Y) %*% (Y)}
   SSR <- SSY - SSE
-  ## calculating R_square and Adjusted R square
+
+  ## Calculating R_square and Adjusted R square
   R_square <- 1 - SSE/SSY
   Adj.R_square <- 1- (SSE/(n-p))/(SSY/(n-1))
   if(!beta0){Adj.R_square <- 1- (SSE/(n-p))/(SSY/(n))}
-  # sigma_sqr_hat <- SSE/dfE = SSE/(n-p)
+
+  # Calculating sigma_sqr_hat <- SSE/dfE = SSE/(n-p)
   sigma_sqr <- (t(resids) %*% resids) /(n-p)
-  # variance beta hat
+  # Calculating variance beta hat
   var_beta_hat <- c(sigma_sqr) * solve(t(X) %*% X)
   colnames(var_beta_hat) <- X_lab
   rownames(var_beta_hat) <- X_lab
 
-  ## inference: t, F and p-value
+  ## Inference, getting: t, F and p-value
   t_value <- c(beta) / sqrt(diag(var_beta_hat))
   F_value <- c((SSR/(p-1)) / (SSE/(n-p)))
   pf_value <- c((1-pf(q=abs(F_value), df1=p-1,df2=n-p)))
   pt_value <- c(2*(1-pt(q=abs(t_value), df=n-p)))
 
+  ## Significance level definition
   sig.level <- function(x){
     ifelse(x>0.1," ",
            ifelse(x>0.05,".",
@@ -80,6 +83,7 @@ coef1 <- function(model){
                                 ifelse(x>0,"***"," ")))))
   }
 
+  ## coefficient table output
   coef_tbl <- data.frame(
     Estimate = c(beta),
     Std.Error = sqrt(diag(var_beta_hat)),
@@ -88,10 +92,13 @@ coef1 <- function(model){
     Sig. = sig.level(pt_value),
     row.names = X_lab
   )
+
+  ## F-test table output
   F_test <- data.frame(
     F_value = F_value, df1 = p-1, df2 = n-p, p_value = pf_value, Sig. = sig.level(pf_value),
     row.names = ' '
   )
+  ## return a list
   return(list(Coefficients = coef_tbl,
               F_test = F_test,
               Signif.codes = c("0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1"),

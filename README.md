@@ -63,7 +63,7 @@ This is a basic example which shows you how to solve a common problem:
 
 ``` r
 library(package.test.11.15)
-## basic example code
+## load dataset mtcars
 head(mtcars)
 #>                    mpg cyl disp  hp drat    wt  qsec vs am gear carb
 #> Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
@@ -73,11 +73,13 @@ head(mtcars)
 #> Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
 #> Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1
 
+## lm_mat() function -->
 model <- lm_mat("mpg", c("drat", "disp", "wt"), mtcars, beta0 = TRUE)
 names(model)
 #>  [1] "xvar"      "yvar"      "Dataset"   "selected"  "beta0"     "N"        
 #>  [7] "p"         "X"         "Y"         "H"         "Y_hat"     "residuals"
 
+## coef1() function -->
 coef1(model)
 #> $Coefficients
 #>                Estimate   Std.Error    t_value      p_value Sig.
@@ -108,6 +110,7 @@ coef1(model)
 ```
 
 ``` r
+## model_diag() function -->
 model_diag(model)
 #> `geom_smooth()` using formula 'y ~ x'
 #> `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
@@ -116,6 +119,7 @@ model_diag(model)
 <img src="man/figures/README-model_diagnostics-1.png" width="100%" />
 
 ``` r
+## eda() function -->
 eda(mtcars[,c(model$yvar, model$xvar)])
 ```
 

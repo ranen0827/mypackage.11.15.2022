@@ -1,5 +1,5 @@
 ---
-title: "lmarr_tutorial"
+title: "package_tutorial"
 output: rmarkdown::html_vignette
 description: 
 vignette: >
@@ -23,6 +23,7 @@ library(package.test.11.15)
 
 -   Consider a MLR (Multiple Linear Regression) model: $$Y_{i} = \beta_{0}+\beta_{1}X_{1}+\beta_{2}X_{2}+\epsilon_{i}$$  
 -   We will use the following four functions to conduct *exploratory data analysis*, *modeling* (including paramater estimation and inference), and *model diagnostics*.
+-   The dataset in vignette is "mtcars" built in the R function. In test cases we use sample dataset "iris" from basic R function.
 
 ## `lm_mat`: Gets the matrix notation and basic information from outcome(Y) and predictors(X) constructing a linear model.
 
@@ -128,6 +129,9 @@ bench::mark(
 
 ```
 
+-   The above code indicates both the **correctness and efficiency** of the function `lm_mat`. `lm_mat` integrates *essential basic information and matrix notation values* of linear regression, which is useful for researchers and statisticians to determine the rationality of the model.
+
+
 ## `coef1`: Parameter estimation and inference of the linear model
 
 ```{r}
@@ -159,15 +163,14 @@ The description of the variables included is as follows:
 -   `Covariance_matrix`: $\hat{var}(\hat{\beta})$, where $(i,j)$ th element $(i≠j)$ is $Cov(\hat{\beta_{i}},\hat{\beta_{j}})$, and the diagonal element is $$\hat{var}(\hat{\beta_{i}})=se(\hat{\beta_{i}})^{2}$$
 
 ```{r}
-## Examples of the returned list
-## coefficient table
-## Original model: ~1.1 ms
+## Using all.equal and bench::mark to check both correctness and efficiency of the function coef1
+## Original model
 bench::mark(
   summary(lm(mpg~cyl+disp,data=mtcars))$coefficients,
   summary(lm(mpg~cyl+disp,data=mtcars))$coefficients
 )
 
-## New model: ~500 ns, including significance level
+## New model, including significance level
 bench::mark(
   coef1$Coefficients,
   coef1$Coefficients
@@ -197,11 +200,13 @@ bench::mark(
 ## Covariance matrix
 stopifnot(all.equal(coef1$Covariance_matrix, vcov(model1)))
 bench::mark(
-  as.numeric(coef1$R_square),
-  as.numeric(summary(model1)$r.squared)
+  as.numeric(coef1$Covariance_matrix),
+  as.numeric(vcov(model1))
 )
 
 ```
+-   The above code indicates both the **correctness and efficiency** of the function `coef1`. `coef1` integrates essential linear regression result together into a list, which spares much time for further analysis.
+
 
 ## `model_diag`: Model diagnostics of the established Linear Model
 
@@ -209,7 +214,7 @@ bench::mark(
 model_MLR1 = lm_mat("mpg", c("cyl", "disp", "qsec"), mtcars, beta0 = TRUE)
 model_diag(model_MLR1)
 
-## As there is no other function that depicts the same plot as our function, and the variables necessary for those plots (namely residuals, fitted values, etc.) have been verified, we don't use either all.equal() or bench::mark().
+## As there is no other function that depicts the same plot as our function, and the variables necessary for those plots (namely residuals, fitted values, etc.) have been verified, we don't use either all.equal() or bench::mark() here.
 ```
 
 **Figure A.** Normal Q-Q plot, which evaluates how well the distribution of a dataset matches a standard normal (Gaussian) distribution;\
@@ -221,7 +226,8 @@ model_diag(model_MLR1)
 
 ```{r}
 eda(model_MLR1$selected)
-## As this is a customized function, and there is no function that we can compare with, we don't use either all.equal() or bench::mark().
+
+## As this is a customized function, and there is no function that we can compare with, we don't use either all.equal() or bench::mark() here.
 ```
 
 -   The above code creates a ($a$ by $a$) matrix (where $a$ is the number of input variables) with one plot at each element. The plot has the following features:
