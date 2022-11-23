@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# package.test.11.15
+# mypackage.11.15.2022
 
 <!-- badges: start -->
 

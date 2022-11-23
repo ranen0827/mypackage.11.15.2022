@@ -67,8 +67,6 @@ lm_mat <- function(Y_lab, X_lab, data, beta0 = TRUE) {
   if (beta0){X <- cbind(rep(1, nrow(data)), X)}
   colnames(X) <- NULL
   rownames(X) <- NULL
-  ## potential_error: about design matrix (...)
-
   H = X %*% solve(t(X) %*% X) %*% t(X)
   Y_hat <- H %*% Y
   return(list(xvar = X_lab,
